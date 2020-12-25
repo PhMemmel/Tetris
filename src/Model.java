@@ -5,12 +5,14 @@ public class Model
 {
     private ArrayList<ModelListener> listeners;
     private int[][] grid;
+    private TileFactory tileFactory;
     TileShape currentTile;
     public Model()
     {
         listeners = new ArrayList<ModelListener>();
         grid = new int[10][24];
-        currentTile = new Shape1();
+        tileFactory = TileFactory.getInstance();
+        currentTile = tileFactory.getNextShape();
     }
     public void addListener(ModelListener listener)
     {
@@ -27,6 +29,10 @@ public class Model
     {
         for(var l : listeners)
             l.modelChanged();
+    }
+    private void freezeTile()
+    {
+
     }
 
     public int getField(int x, int y)
