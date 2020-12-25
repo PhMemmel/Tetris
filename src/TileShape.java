@@ -7,6 +7,7 @@ public abstract class TileShape
     {
         return  grid;
     }
+    public abstract int getColorCode();
     public int getX()
     {
         return x;
@@ -18,7 +19,7 @@ public abstract class TileShape
     public TileShape()
     {
         grid = new int[4][4];
-        x=0;
+        x=3;
         y=0;
         rotationState = 1;
         setShape();
@@ -53,6 +54,24 @@ public abstract class TileShape
             }
             case rotate -> {
                 rotate();
+            }
+        }
+    }
+    public void reverseMove(Movement movement)
+    {
+        switch (movement)
+        {
+            case left -> {
+                x++;
+            }
+            case down -> {
+                y--;
+            }
+            case right -> {
+                x--;
+            }
+            case rotate -> {
+                rotateBack();
             }
         }
     }

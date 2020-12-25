@@ -1,9 +1,10 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class View extends Canvas implements ModelListener, KeyListener
+public class View extends JPanel implements ModelListener, KeyListener
 {
     Model model;
     Frame frame;
@@ -20,18 +21,22 @@ public class View extends Canvas implements ModelListener, KeyListener
         frame.setLocation(300,300);
         this.addKeyListener(this);
         frame.setVisible(true);
+        this.setFocusable(true);
+        this.grabFocus();
     }
 
     @Override
-    public void paint(Graphics graphics)
+    public void paintComponent(Graphics graphics)
     {
-        super.paint(graphics);
         for(int i = 0; i<10;i++)
         {
             for (int j = 0; j < 24; j++)
             {
-                graphics.setColor(ShapeColor.getColor(model.getField(i,j)));
+                int colorCode =model.getField(i,j);
+                graphics.setColor(j<4 && colorCode == 0 ? Color.lightGray : ShapeColor.getColor(colorCode));
                 graphics.fillRect(i*20+20,j*20+20,20,20);
+                graphics.setColor(Color.darkGray);
+                graphics.drawRect(i*20+20,j*20+20,20,20);
             }
         }
     }
@@ -45,7 +50,9 @@ public class View extends Canvas implements ModelListener, KeyListener
     @Override
     public void modelChanged()
     {
-        paint(getGraphics());
+        if(model.isGameOver())
+            System.exit(0);
+        repaint();
     }
 
     @Override
@@ -69,6 +76,7 @@ public class View extends Canvas implements ModelListener, KeyListener
                 notifyListeners(Movement.right);
                 break;
             case 32:
+            case 38:
                 notifyListeners(Movement.rotate);
                 break;
             default:

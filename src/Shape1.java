@@ -1,5 +1,11 @@
 public class Shape1 extends TileShape
 {
+    @Override
+    public int getColorCode()
+    {
+        return 1;
+    }
+
     public Shape1()
     {
         super();
