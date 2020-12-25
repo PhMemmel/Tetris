@@ -1,13 +1,13 @@
-public class Shape1 extends TileShape
+public class Shape2 extends TileShape
 {
-    private final int colCode = 1;
+    private final int colCode = 2;
     @Override
     public int getColorCode()
     {
         return colCode;
     }
 
-    public Shape1()
+    public Shape2()
     {
         super();
 
@@ -22,28 +22,28 @@ public class Shape1 extends TileShape
         switch (rotationState)
         {
             case 1:
+                grid[0][0] = colCode;
                 grid[0][1] = colCode;
                 grid[1][1] = colCode;
                 grid[2][1] = colCode;
-                grid[3][1] = colCode;
                 break;
             case 2:
+                grid[1][0] = colCode;
                 grid[2][0] = colCode;
-                grid[2][1] = colCode;
-                grid[2][2] = colCode;
-                grid[2][3] = colCode;
+                grid[1][1] = colCode;
+                grid[1][2] = colCode;
                 break;
             case 3:
-                grid[0][2] = colCode;
-                grid[1][2] = colCode;
+                grid[0][1] = colCode;
+                grid[1][1] = colCode;
+                grid[2][1] = colCode;
                 grid[2][2] = colCode;
-                grid[3][2] = colCode;
                 break;
             case 4:
                 grid[1][0] = colCode;
                 grid[1][1] = colCode;
                 grid[1][2] = colCode;
-                grid[1][3] = colCode;
+                grid[0][2] = colCode;
                 break;
             default:
         }
