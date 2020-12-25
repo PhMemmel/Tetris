@@ -1,4 +1,4 @@
 public enum Movement
 {
-    left, down, right;
+    left, down, right, rotate;
 }

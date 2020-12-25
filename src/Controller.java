@@ -14,6 +14,6 @@ public class Controller implements ViewListener
     @Override
     public void MovementKeyPressed(Movement movement)
     {
-
+        model.move(movement);
     }
 }
