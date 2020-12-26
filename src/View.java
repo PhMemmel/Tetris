@@ -94,9 +94,11 @@ public class View extends JPanel implements ModelListener, KeyListener
             case 39:
                 notifyListeners(Movement.right);
                 break;
-            case 32:
             case 38:
                 notifyListeners(Movement.rotate);
+                break;
+            case 32:
+                notifyListeners(Movement.falldown);
                 break;
             default:
         }

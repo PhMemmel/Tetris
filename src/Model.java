@@ -34,6 +34,8 @@ public class Model
             if(movement == Movement.down)
                 freezeTile();
         }
+        else if(movement == Movement.falldown)
+            move(movement);
         notifyListeners();
     }
     private boolean currentTileIntercepts()

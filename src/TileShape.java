@@ -46,7 +46,7 @@ public abstract class TileShape
             case left -> {
                 x--;
             }
-            case down -> {
+            case down, falldown -> {
                 y++;
             }
             case right -> {
@@ -64,7 +64,7 @@ public abstract class TileShape
             case left -> {
                 x++;
             }
-            case down -> {
+            case down, falldown -> {
                 y--;
             }
             case right -> {
