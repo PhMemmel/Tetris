@@ -16,7 +16,7 @@ public class TileFactory
     private TileFactory()
     {
         random = new Random();
-        shapes = new Class[] {Shape1.class, Shape2.class};
+        shapes = new Class[] {Shape1.class, Shape2.class, Shape3.class, Shape4.class, Shape5.class, Shape6.class, Shape7.class};
     }
     public TileShape getNextShape()
     {

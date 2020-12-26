@@ -112,7 +112,6 @@ public class Model
         int xOff = x- currentTile.x;
         int yOff = y - currentTile.y;
 
-        System.out.println(x+ " " + y + " " + xOff + " " + yOff);
         if(xOff>-1 && xOff<4 && yOff>-1 && yOff<4)
             return grid[x][y] + currentTile.grid[xOff][yOff];
         return grid[x][y];
