@@ -52,4 +52,16 @@ public class GameTimer extends TimerTask implements ModelListener
     {
         timer.cancel();
     }
+
+    @Override
+    public void rotated()
+    {
+
+    }
+
+    @Override
+    public void dropped()
+    {
+
+    }
 }

@@ -36,11 +36,18 @@ public class Model
         if(currentTileIntercepts())
         {
             currentTile.reverseMove(movement);
-            if(movement == Movement.down)
+            if(movement == Movement.down || movement == Movement.falldown)
                 freezeTile();
         }
+        else if(movement == Movement.rotate)
+        {
+            notifyRotateListeners();
+        }
         else if(movement == Movement.falldown)
+        {
+            score++;
             move(movement);
+        }
         notifyModelListeners();
     }
     private boolean currentTileIntercepts()
@@ -67,8 +74,15 @@ public class Model
         for(var l : listeners)
             l.modelChanged();
     }
+    private void notifyDropListeners()
+    {
+        for(var l : listeners)
+            l.dropped();
+    }
+
     private void freezeTile()
     {
+        score++;
         int x = currentTile.x;
         int y = currentTile.y;
         int c = currentTile.getColorCode();
@@ -91,6 +105,7 @@ public class Model
         currentTile = nextTile;
         nextTile = tileFactory.getNextShape();
         notifyModelListeners();
+        notifyDropListeners();
     }
 
     private void checkLine()
@@ -131,6 +146,11 @@ public class Model
             notifyLinesListeners();
     }
 
+    private void notifyRotateListeners()
+    {
+        for(var l : listeners)
+            l.rotated();
+    }
     private void notifyLinesListeners()
     {
         for(var l : listeners)

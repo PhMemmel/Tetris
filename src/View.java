@@ -19,7 +19,7 @@ public class View extends JPanel implements ModelListener, KeyListener
         frame.add(this);
         frame.setSize(650,800);
         frame.setResizable(false);
-        frame.setLocation(300,10);
+        frame.setLocation(400,50);
         this.addKeyListener(this);
         frame.setVisible(true);
         this.setFocusable(true);
@@ -30,13 +30,14 @@ public class View extends JPanel implements ModelListener, KeyListener
     public void paintComponent(Graphics graphics)
     {
         super.paintComponent(graphics);
+        var gameover = model.isGameOver();
         int scale = 35;
         for(int i = 0; i<10;i++)
         {
             for (int j = 4; j < 24; j++)
             {
                 int colorCode =model.getField(i,j);
-                graphics.setColor(ShapeColor.getColor(colorCode));
+                graphics.setColor(gameover && colorCode>0 ? Color.lightGray : ShapeColor.getColor(colorCode));
                 graphics.fillRect(i*scale+scale,(j-3)*scale,scale,scale);
                 graphics.setColor(Color.darkGray);
                 graphics.drawRect(i*scale+scale,(j-3)*scale,scale,scale);
@@ -80,6 +81,18 @@ public class View extends JPanel implements ModelListener, KeyListener
 
     @Override
     public void gameOver()
+    {
+
+    }
+
+    @Override
+    public void rotated()
+    {
+
+    }
+
+    @Override
+    public void dropped()
     {
 
     }
