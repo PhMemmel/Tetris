@@ -6,15 +6,18 @@ public class Model
     private ArrayList<ModelListener> listeners;
     private int[][] grid;
     private TileFactory tileFactory;
-    TileShape currentTile;
+    TileShape currentTile, nextTile;
     private boolean gameOver;
+    private int score;
     public Model()
     {
         listeners = new ArrayList<ModelListener>();
         grid = new int[10][24];
         tileFactory = TileFactory.getInstance();
         currentTile = tileFactory.getNextShape();
+        nextTile = tileFactory.getNextShape();
         gameOver = false;
+        score = 0;
     }
     public void addListener(ModelListener listener)
     {
@@ -76,12 +79,14 @@ public class Model
             }
         }
         checkLine();
-        currentTile = tileFactory.getNextShape();
+        currentTile = nextTile;
+        nextTile = tileFactory.getNextShape();
         notifyListeners();
     }
 
     private void checkLine()
     {
+        int linesCleared = 0;
         for(int i=23;i>=0;i--)
         {
             boolean linecomplete = true;
@@ -93,8 +98,25 @@ public class Model
             if(linecomplete)
             {
                 clearLine(i);
+                linesCleared++;
                 i++;
             }
+        }
+        switch (linesCleared)
+        {
+            case 1:
+                score+=40;
+                break;
+            case 2:
+                score+=100;
+                break;
+            case 3:
+                score+=300;
+                break;
+            case 4:
+                score +=1200;
+                break;
+            default:
         }
     }
 
@@ -118,6 +140,12 @@ public class Model
             return grid[x][y] + currentTile.grid[xOff][yOff];
         return grid[x][y];
     }
+    public int getNextShapeField(int x, int y)
+    {
+        if(x<0 || x>3 || y<0 || y > 3)
+            return 0;
+        return nextTile.grid[x][y];
+    }
 
     public boolean isGameOver()
     {
@@ -125,4 +153,8 @@ public class Model
     }
 
 
+    public int getScore()
+    {
+        return score;
+    }
 }

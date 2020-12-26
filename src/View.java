@@ -15,10 +15,11 @@ public class View extends JPanel implements ModelListener, KeyListener
         this.model.addListener(this);
         listeners = new ArrayList<>();
         frame = new Frame("Tetris");
+        setBackground(Color.darkGray);
         frame.add(this);
-        frame.setSize(800,600);
+        frame.setSize(650,800);
         frame.setResizable(false);
-        frame.setLocation(300,300);
+        frame.setLocation(300,10);
         this.addKeyListener(this);
         frame.setVisible(true);
         this.setFocusable(true);
@@ -28,17 +29,35 @@ public class View extends JPanel implements ModelListener, KeyListener
     @Override
     public void paintComponent(Graphics graphics)
     {
+        super.paintComponent(graphics);
+        int scale = 35;
         for(int i = 0; i<10;i++)
         {
-            for (int j = 0; j < 24; j++)
+            for (int j = 4; j < 24; j++)
             {
                 int colorCode =model.getField(i,j);
-                graphics.setColor(j<4 && colorCode == 0 ? Color.lightGray : ShapeColor.getColor(colorCode));
-                graphics.fillRect(i*20+20,j*20+20,20,20);
+                graphics.setColor(ShapeColor.getColor(colorCode));
+                graphics.fillRect(i*scale+scale,(j-3)*scale,scale,scale);
                 graphics.setColor(Color.darkGray);
-                graphics.drawRect(i*20+20,j*20+20,20,20);
+                graphics.drawRect(i*scale+scale,(j-3)*scale,scale,scale);
             }
         }
+
+        for(int i=0;i<4;i++)
+        {
+            for(int j=0;j<4;j++)
+            {
+                int colorCode =model.getNextShapeField(i,j);
+                graphics.setColor(colorCode == 0 ? Color.darkGray : ShapeColor.getColor(colorCode));
+                graphics.fillRect(i*scale+13 * scale,j*scale+scale,scale,scale);
+                graphics.setColor(Color.darkGray);
+                graphics.drawRect(i*scale+ 13 * scale,j*scale+scale,scale,scale);
+            }
+        }
+        graphics.setFont(new Font("Times",10,24));
+        graphics.setColor(Color.red);
+        graphics.drawString("Score: "+model.getScore(),13*scale, 5*scale);
+
     }
 
 
