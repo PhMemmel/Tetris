@@ -22,10 +22,10 @@ public class GameTimer extends TimerTask implements ModelListener
     public synchronized void speedup()
     {
         timer.cancel();
-        if(intervall>100)
-            intervall -=20;
+        if(intervall>150)
+            intervall -=50;
         else
-            intervall = 80;
+            intervall = 100;
         start();
     }
 

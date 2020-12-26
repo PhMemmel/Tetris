@@ -1,27 +1,27 @@
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
-
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
 public class SoundPlayer implements ModelListener
 {
     Model model;
 
+    private Sound line, rotate, drop;
+    private Music music;
     public SoundPlayer(Model model)
     {
         this.model = model;
-        try
-        {
-            var audioin = AudioSystem.getAudioInputStream(new File("./sounds/theme.wav").getAbsoluteFile());
-            var clip = AudioSystem.getClip();
-            clip.open(audioin);
-             clip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e)
-        {
-            System.out.println(e);
-        }
-
+        TinySound.init();
+        music = TinySound.loadMusic("theme.wav");
+        line = TinySound.loadSound("line.wav");
+        rotate = TinySound.loadSound("rotate.wav");
+        drop = TinySound.loadSound("drop.wav");
+        music.play(true);
     }
     @Override
     public void modelChanged()
@@ -32,41 +32,26 @@ public class SoundPlayer implements ModelListener
     @Override
     public void linesCleared()
     {
-
-        playSound("sounds/line.wav");
+        line.play();
     }
 
     @Override
     public void gameOver()
     {
-
+        music.stop();
+        TinySound.shutdown();
     }
 
     @Override
     public void rotated()
     {
-        playSound("./sounds/rotate.wav");
-
+        rotate.play();
     }
 
-    private void playSound(String s)
-    {
-        try
-        {
-            var audioin = AudioSystem.getAudioInputStream(new File(s).getAbsoluteFile());
-            var clip = AudioSystem.getClip();
-            while (clip.isRunning())
-                Thread.sleep(10);
-            clip.open(audioin);
-            clip.start();
-        } catch (Exception e)
-        {
-            System.out.println(e);
-        }
-    }
+
     @Override
     public void dropped()
     {
-        playSound("./sounds/drop.wav");
+        drop.play();
     }
 }
