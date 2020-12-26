@@ -69,9 +69,19 @@ public class View extends JPanel implements ModelListener, KeyListener
     @Override
     public void modelChanged()
     {
-        if(model.isGameOver())
-            System.exit(0);
         repaint();
+    }
+
+    @Override
+    public void linesCleared()
+    {
+
+    }
+
+    @Override
+    public void gameOver()
+    {
+
     }
 
     @Override
@@ -82,7 +92,6 @@ public class View extends JPanel implements ModelListener, KeyListener
     @Override
     public void keyPressed(KeyEvent keyEvent)
     {
-        System.out.println(keyEvent.getKeyCode());
         switch (keyEvent.getKeyCode())
         {
             case 37:

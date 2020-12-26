@@ -8,7 +8,8 @@ public class Controller implements ViewListener
         this.view = view;
         this.model = model;
         this.view.addListener(this);
-        gameTimer = new GameTimer(this.model);
+        gameTimer = new GameTimer(this.model,500);
+        this.model.addListener(gameTimer);
         gameTimer.start();
     }
 

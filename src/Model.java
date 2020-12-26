@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Model
@@ -24,9 +23,15 @@ public class Model
         listeners.add(listener);
     }
 
-
+    private void notifyGameoverListeners()
+    {
+        for(var l : listeners)
+            l.gameOver();
+    }
     public void move(Movement movement)
     {
+        if(gameOver)
+            return;
         currentTile.move(movement);
         if(currentTileIntercepts())
         {
@@ -36,7 +41,7 @@ public class Model
         }
         else if(movement == Movement.falldown)
             move(movement);
-        notifyListeners();
+        notifyModelListeners();
     }
     private boolean currentTileIntercepts()
     {
@@ -57,7 +62,7 @@ public class Model
         }
         return false;
     }
-    private void notifyListeners()
+    private void notifyModelListeners()
     {
         for(var l : listeners)
             l.modelChanged();
@@ -80,10 +85,12 @@ public class Model
                 }
             }
         }
+        if(gameOver)
+            notifyGameoverListeners();
         checkLine();
         currentTile = nextTile;
         nextTile = tileFactory.getNextShape();
-        notifyListeners();
+        notifyModelListeners();
     }
 
     private void checkLine()
@@ -120,6 +127,14 @@ public class Model
                 break;
             default:
         }
+        if(linesCleared>0)
+            notifyLinesListeners();
+    }
+
+    private void notifyLinesListeners()
+    {
+        for(var l : listeners)
+            l.linesCleared();
     }
 
     private void clearLine(int l)
@@ -131,7 +146,6 @@ public class Model
                 grid[j][i] = grid[j][i-1];
             }
         }
-        notifyListeners();
     }
     public int getField(int x, int y)
     {
@@ -159,4 +173,6 @@ public class Model
     {
         return score;
     }
+
+
 }
