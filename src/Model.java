@@ -97,6 +97,7 @@ public class Model
             }
         }
     }
+
     private void clearLine(int l)
     {
         for(int i = l; i>0;i--)
@@ -106,6 +107,7 @@ public class Model
                 grid[j][i] = grid[j][i-1];
             }
         }
+        notifyListeners();
     }
     public int getField(int x, int y)
     {
@@ -121,4 +123,6 @@ public class Model
     {
         return gameOver;
     }
+
+
 }

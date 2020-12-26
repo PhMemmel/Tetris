@@ -83,6 +83,7 @@ public class View extends JPanel implements ModelListener, KeyListener
         }
     }
 
+
     private void notifyListeners(Movement movement)
     {
         for(var l : listeners)
