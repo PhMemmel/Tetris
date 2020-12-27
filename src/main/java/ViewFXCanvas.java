@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -26,10 +27,10 @@ public class ViewFXCanvas extends Canvas implements ModelListener {
         for (int i = 0; i < 10; i++) {
             for (int j = 4; j < 24; j++) {
                 int colorCode = model.getField(i, j);
-                graphics.setFill(Color.DARKGRAY);
-                graphics.fillRect(i * scale + scale, (j - 3) * scale, scale, scale);
                 graphics.setFill(gameover && colorCode > 0 ? Color.LIGHTGRAY : ShapeColorFX.getColor(colorCode));
                 graphics.fillRect(i * scale + scale, (j - 3) * scale, scale, scale);
+                graphics.setStroke(Color.DARKGRAY);
+                graphics.strokeRect(i * scale + scale, (j - 3) * scale, scale, scale);
 
 
             }
@@ -38,10 +39,10 @@ public class ViewFXCanvas extends Canvas implements ModelListener {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 int colorCode = model.getNextShapeField(i, j);
-                graphics.setFill(Color.DARKGRAY);
+                graphics.setFill(colorCode == 0 ? Color.LIGHTGRAY : ShapeColorFX.getColor(colorCode));
                 graphics.fillRect(i * scale + 13 * scale, j * scale + scale, scale, scale);
-                graphics.setFill(colorCode == 0 ? Color.DARKGRAY : ShapeColorFX.getColor(colorCode));
-                graphics.fillRect(i * scale + 13 * scale, j * scale + scale, scale, scale);
+                graphics.setStroke(Color.DARKGRAY);
+                graphics.strokeRect(i * scale + 13 * scale, j * scale + scale, scale, scale);
 
 
             }
@@ -60,9 +61,12 @@ public class ViewFXCanvas extends Canvas implements ModelListener {
 
     @Override
     public void modelChanged() {
+        // complete repaint currently only needed for text
+        // TODO make it more efficient: repaint completely and only paint boxes with tile
         getGraphicsContext2D().clearRect(
                 0, 0, getWidth(), getHeight());
-        paintComponent(getGraphicsContext2D());
+        Platform.runLater(() -> paintComponent(getGraphicsContext2D()));
+
     }
 
     @Override
