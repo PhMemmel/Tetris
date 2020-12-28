@@ -10,7 +10,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Tetris" target="15" />
+      <module name="edv.palma.tetris" target="15" />
+      <module name="Tetris" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>

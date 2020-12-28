@@ -1,3 +1,5 @@
+package tetris;
+
 public interface ModelListener
 {
     void modelChanged();

@@ -1,3 +1,5 @@
+package tetris;
+
 public abstract class TileShape {
     protected int[][] grid;
     protected int x, y;

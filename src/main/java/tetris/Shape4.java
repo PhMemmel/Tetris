@@ -1,3 +1,5 @@
+package tetris;
+
 public class Shape4 extends TileShape
 {
     private final int colCode = 4;

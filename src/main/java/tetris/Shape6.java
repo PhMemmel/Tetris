@@ -1,13 +1,15 @@
-public class Shape5 extends TileShape
+package tetris;
+
+public class Shape6 extends TileShape
 {
-    private final int colCode = 5;
+    private final int colCode = 6;
     @Override
     public int getColorCode()
     {
         return colCode;
     }
 
-    public Shape5()
+    public Shape6()
     {
         super();
 
@@ -23,24 +25,24 @@ public class Shape5 extends TileShape
         {
             case 1:
                 grid[1][0] = colCode;
-                grid[2][0] = colCode;
                 grid[0][1] = colCode;
                 grid[1][1] = colCode;
+                grid[2][1] = colCode;
                 break;
             case 2:
                 grid[1][0] = colCode;
                 grid[1][1] = colCode;
                 grid[2][1] = colCode;
-                grid[2][2] = colCode;
+                grid[1][2] = colCode;
                 break;
             case 3:
+                grid[0][1] = colCode;
                 grid[1][1] = colCode;
                 grid[2][1] = colCode;
-                grid[0][2] = colCode;
                 grid[1][2] = colCode;
                 break;
             case 4:
-                grid[0][0] = colCode;
+                grid[1][0] = colCode;
                 grid[0][1] = colCode;
                 grid[1][1] = colCode;
                 grid[1][2] = colCode;

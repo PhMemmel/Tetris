@@ -1,3 +1,5 @@
+package tetris;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 

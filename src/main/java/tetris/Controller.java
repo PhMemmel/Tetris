@@ -1,3 +1,5 @@
+package tetris;
+
 public class Controller implements ViewListener {
     private ViewFXCanvas view;
     private Model model;
